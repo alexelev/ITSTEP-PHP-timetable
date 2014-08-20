@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>routes</title>
+</head>
+<body>
+<?php if($template['show_form']){ ?>
+	<?php if(isset($template['error'])){ ?>
+		<p><?= $template['error']?></p>
+	<?php } ?>
+
+	<form action="/admin/routes.php" method="POST">
+		<input type="hidden" name="action" value="<?=$template['formAction'] ?>"/>
+		<?php if($template['formAction'] === 'edit'){?>
+			<input type="hidden" name="id" value="<?=$template['formId']?>">
+		<? } ?>
+
+		<?php if(!empty($template['routeParts'])){ ?>
+			<?php foreach ($template['routeParts'] as $item) { ?>
+				<select name="parts[]" id="">
+				<option>Choose the part</option>
+				<?php foreach ($template['formParts'] as $item1) { ?>
+					<option value="<?=$item['id']?>"
+					<?= ($item['id'] == $item1['id']) ? 'selected' : '' ?>
+					><?=$item1['title']?></option>
+
+				<?php } ?>
+				</select>
+				Время отправления: <input type="time" name="timeFrom" value="00:00"/>
+				Время прибытия: <input type="time" name="timeTo" value="00:00"/>	
+				<br/>
+			<? } 
+			if ($template['addPart']){ ?>
+				<select name="parts[]" id="">
+					<option>Choose the part</option>
+					<?php foreach ($template['formParts'] as $item) { ?>
+					<option value="<?=$item['id']?>"><?=$item['title']?></option>
+					<?php } ?>
+				</select>
+				Время отправления: <input type="time" name="timeFrom" value="00:00">
+				Время прибытия: <input type="time" name="timeTo" value="00:00">	
+				<br/>
+			<? } ?>
+
+		<? } else { ?>
+		<select name="parts[]" id="">
+			<option>Choose the part</option>
+			<?php foreach ($template['formParts'] as $item) { ?>
+			<option value="<?=$item['id']?>"><?=$item['title']?></option>
+			<?php } ?>
+		</select>
+		Время отправления: <input type="time" name="timeFrom" value="00:00">
+		Время прибытия: <input type="time" name="timeTo" value="00:00">	
+		<br/>
+		<? } ?>
+		
+		<input type="submit" name="addPart" value="ADD PART">
+		<br/>
+		<select name="cars[]" id="">
+			<option>Choose the cars</option>
+			<?php foreach ($template['formCars'] as $item) { ?>
+			<option value="<?=$item['id'] ?>"><?=$item['name']?></option>
+			<?php } ?>
+		</select>
+		<br/>		
+		<input type="submit" name="addCar" value="ADD CAR">
+		<br/>
+		<input type="submit" value="SAVE">
+	</form>
+<?php } else {?>
+<a href="/admin/routes.php?action=add">ADD ROUTE</a>
+	<table>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>Город</th>
+				<th>Станция</th>
+				<th colspan="2"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach($template['list'] as $item){ ?>
+				<tr>
+					<td><?=$item['id']?></td>
+					<td><?=$item['city']?></td>
+					<td><?=$item['name']?></td>
+					<td><a href="/admin/stations.php?action=edit&id=<?=$item['id']?>">edit</a></td>
+					<td><a href="/admin/stations.php?action=delete&id=<?=$item['id']?>">delete</a></td>
+				</tr>
+			<?} ?>
+		</tbody>		
+	</table>
+<?php } ?>	
+</body>
+</html>
