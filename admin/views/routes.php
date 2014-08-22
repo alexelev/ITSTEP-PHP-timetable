@@ -19,53 +19,89 @@
 		<?php if(!empty($template['routeParts'])){ ?>
 			<?php foreach ($template['routeParts'] as $item) { ?>
 				<select name="parts[]" id="">
-				<option>Choose the part</option>
+				<option value="">Choose the part</option>
 				<?php foreach ($template['formParts'] as $item1) { ?>
-					<option value="<?=$item['id']?>"
+					<option value="<?=$item1['id']?>"
 					<?= ($item['id'] == $item1['id']) ? 'selected' : '' ?>
 					><?=$item1['title']?></option>
 
 				<?php } ?>
 				</select>
-				Время отправления: <input type="time" name="timeFrom" value="00:00"/>
-				Время прибытия: <input type="time" name="timeTo" value="00:00"/>	
+				Время отправления: <input type="time" name="timeFrom[]" value="00:00"/>
+				Время прибытия: <input type="time" name="timeTo[]" value="00:00"/>	
 				<br/>
 			<? } 
 			if ($template['addPart']){ ?>
 				<select name="parts[]" id="">
-					<option>Choose the part</option>
+					<option value="">Choose the part</option>
 					<?php foreach ($template['formParts'] as $item) { ?>
 					<option value="<?=$item['id']?>"><?=$item['title']?></option>
 					<?php } ?>
 				</select>
-				Время отправления: <input type="time" name="timeFrom" value="00:00">
-				Время прибытия: <input type="time" name="timeTo" value="00:00">	
+				Время отправления: <input type="time" name="timeFrom[]" value="00:00">
+				Время прибытия: <input type="time" name="timeTo[]" value="00:00">	
 				<br/>
 			<? } ?>
 
 		<? } else { ?>
 		<select name="parts[]" id="">
-			<option>Choose the part</option>
+			<option value="">Choose the part</option>
 			<?php foreach ($template['formParts'] as $item) { ?>
 			<option value="<?=$item['id']?>"><?=$item['title']?></option>
 			<?php } ?>
 		</select>
-		Время отправления: <input type="time" name="timeFrom" value="00:00">
-		Время прибытия: <input type="time" name="timeTo" value="00:00">	
+		Время отправления: <input type="time" name="timeFrom[]" value="00:00">
+		Время прибытия: <input type="time" name="timeTo[]" value="00:00">	
 		<br/>
 		<? } ?>
 		
 		<input type="submit" name="addPart" value="ADD PART">
 		<br/>
+		
+		<?php if (!empty($template['routeCars'])) { ?>
+		
+			<?php foreach($template['routeCars'] as $car) { ?>
+				
+				<select name="cars[]" id="">
+					<option>Choose the cars</option>
+					<?php foreach ($template['formCars'] as $item) { ?>
+					<option value="<?=$item['id'] ?>"
+					<?= ($item['id'] === $car['id']) ? 'selected' : '' ?>><?=$item['name']?></option>
+					<?php } ?>
+				</select>
+				<br/>
+			<?php } 
+
+			if($template['addCar']) { ?>
+				<select name="cars[]" id="">
+					<option>Choose the cars</option>
+					<?php foreach ($template['formCars'] as $item) { ?>
+					<option value="<?=$item['id'] ?>"><?=$item['name']?></option>
+					<?php } ?>
+				</select>
+				<br/>
+			<?php } ?>
+			
+		<?php } else { ?>
 		<select name="cars[]" id="">
 			<option>Choose the cars</option>
 			<?php foreach ($template['formCars'] as $item) { ?>
 			<option value="<?=$item['id'] ?>"><?=$item['name']?></option>
 			<?php } ?>
 		</select>
+		
+		<?php } ?>
 		<br/>		
 		<input type="submit" name="addCar" value="ADD CAR">
 		<br/>
+		
+		MESSAGE: <br/>
+		<textarea name="message" cols="100" rows="20" resize="none"><?= $template['formMessage'] ?></textarea>
+		<br/>
+		DATE: 
+		<input type="date" name="date" value="<?= $template['formDate'] ?>">
+		<br/>
+
 		<input type="submit" value="SAVE">
 	</form>
 <?php } else {?>

@@ -14,6 +14,8 @@
 		while($row = mysql_fetch_assoc($result)){
 			$template['formParts'][] = $row;
 		}
+		
+
 
 		$query = "SELECT `id`, `name` FROM `cars` ORDER BY `name`";
 		$result = mysql_query($query);
@@ -31,9 +33,10 @@
 		}
 		$template['routeCars'] = array();
 		foreach ($_POST['cars'] as $car) {
-			$template['routeCars'][] = $car;
+			$template['routeCars'][] = findCar($car);
 		}
-		
+		$template['formMessage'] = $_POST['message'];
+		$template['formDate'] = $_POST['date'];
 	}
 
 	function findPart($id){
@@ -43,6 +46,15 @@
 				return $item;
 		}
 		return null;
+	}
+
+	function findCar($id){
+		global $template;
+		foreach ($template['formCars'] as $item) {
+			if ($item['id'] === $id)
+				return $item;
+		}
+		return null;	
 	}
 
 	function prepareList(){
@@ -98,9 +110,29 @@
 					$template['formAction'] = 'add';
 					prepareValues();
 					prepareRoute();
+					$template['addCar'] = true;
 				} else {
 					$template['show_form'] = false;
 					prepareList();
+					$query = 'SELECT `station1` FROM `parts` WHERE `id` = '.$_POST['parts'][0];
+					$result = mysql_query($query) or die(mysql_error());
+					$station1 = current(mysql_fetch_assoc($result));
+					
+					$query = 'SELECT `station1` FROM `parts` WHERE `id` = '.$_POST['parts'][count($_POST['parts']) - 1];
+					$result = mysql_query($query) or die(mysql_error());
+					$station2 = current(mysql_fetch_assoc($result));
+
+					$timeFrom = $_POST['timeFrom'][0];
+					$timeTo = $_POST['timeTo'][count($_POST['timeTo']) - 1];
+					$date = $_POST['date'];
+					$message = $_POST['message'];
+					$cars = implode(',', $_POST['cars']);
+
+					$query = "INSERT INTO `routes` (`stFrom`, `stTo`, `message`, `cars`, `timeFrom`, `timeTo`, `date`) VALUES ($station1, $station2, '$message', '$cars', CAST('$timeFrom' AS TIME), CAST('$timeTo' AS TIME), CAST('$date' AS DATE))";
+						// echo $query;
+						// die();
+					$result = mysql_query($query) or die(mysql_error());
+
 				}
 				break;
 			case 'edit': 
@@ -124,4 +156,13 @@
 		
 	}
 
+	// echo '<pre>';
+	// var_dump($template, $_POST);
+	// print_r($template);
+	// echo '</pre>';
+
 	include ABSPATH.'/admin/views/routes.php';
+
+
+	//TODO: запоминать время отрезков в $_POST, заполнить таблицу route_parts
+	//mysql_insert_id()
