@@ -14,9 +14,6 @@
 		while($row = mysql_fetch_assoc($result)){
 			$template['formParts'][] = $row;
 		}
-		
-
-
 		$query = "SELECT `id`, `name` FROM `cars` ORDER BY `name`";
 		$result = mysql_query($query);
 		$template['formCars'] = array();
@@ -35,6 +32,14 @@
 		foreach ($_POST['cars'] as $car) {
 			$template['routeCars'][] = findCar($car);
 		}
+        $template['routeTimeFrom'] = array();
+        foreach ($_POST['timeFrom'] as $item){
+            $template['routeTimeFrom'][] = $item;
+        }
+        $template['routeTimeTo'] = array();
+        foreach ($_POST['timeTo'] as $item){
+            $template['routeTimeTo'][] = $item;
+        }
 		$template['formMessage'] = $_POST['message'];
 		$template['formDate'] = $_POST['date'];
 	}
@@ -114,11 +119,13 @@
 				} else {
 					$template['show_form'] = false;
 					prepareList();
-					$query = 'SELECT `station1` FROM `parts` WHERE `id` = '.$_POST['parts'][0];
+					$query = 'SELECT `station1` FROM `parts`
+					            WHERE `id` = '.$_POST['parts'][0];
 					$result = mysql_query($query) or die(mysql_error());
 					$station1 = current(mysql_fetch_assoc($result));
 					
-					$query = 'SELECT `station1` FROM `parts` WHERE `id` = '.$_POST['parts'][count($_POST['parts']) - 1];
+					$query = "SELECT `station1` FROM `parts`
+					            WHERE `id` = ".$_POST['parts'][count($_POST['parts']) - 1];
 					$result = mysql_query($query) or die(mysql_error());
 					$station2 = current(mysql_fetch_assoc($result));
 
@@ -128,12 +135,28 @@
 					$message = $_POST['message'];
 					$cars = implode(',', $_POST['cars']);
 
-					$query = "INSERT INTO `routes` (`stFrom`, `stTo`, `message`, `cars`, `timeFrom`, `timeTo`, `date`) VALUES ($station1, $station2, '$message', '$cars', CAST('$timeFrom' AS TIME), CAST('$timeTo' AS TIME), CAST('$date' AS DATE))";
+					$query = "INSERT INTO `routes` (`stFrom`, `stTo`, `message`,
+					            `cars`, `timeFrom`, `timeTo`, `date`)
+					            VALUES ($station1, $station2, '$message', '$cars',
+					            CAST('$timeFrom' AS TIME), CAST('$timeTo' AS TIME),
+					             CAST('$date' AS DATE))";
 						// echo $query;
 						// die();
 					$result = mysql_query($query) or die(mysql_error());
 
-				}
+                    $routeID = mysql_insert_id();
+                    foreach ($template['routeParts'] as $key => $part) {
+                        $id = $part[id];
+                        $timeFrom = $template[routeTimeFrom][$key];
+                        $timeTo = $template[routeTimeTo][$key];
+                        $query = "INSERT INTO `route_parts` (`id_route`, `id_part`, `timeFrom`, `timeTo`)
+                                    VALUES ($routeID, CAST($id AS INT),
+                                    CAST($timeFrom AS TIME),
+                                    CAST($timeTo AS TIME))";
+                        $result = mysql_query($query) or die(mysql_error());
+                    }
+
+                }
 				break;
 			case 'edit': 
 				if(!empty($_POST['city']) && !empty($_POST['name'])){
@@ -156,10 +179,10 @@
 		
 	}
 
-	// echo '<pre>';
-	// var_dump($template, $_POST);
+	 echo '<pre>';
+	 var_dump($template, $_POST);
 	// print_r($template);
-	// echo '</pre>';
+	 echo '</pre>';
 
 	include ABSPATH.'/admin/views/routes.php';
 

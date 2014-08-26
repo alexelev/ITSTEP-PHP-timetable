@@ -17,7 +17,7 @@
 		<? } ?>
 
 		<?php if(!empty($template['routeParts'])){ ?>
-			<?php foreach ($template['routeParts'] as $item) { ?>
+			<?php foreach ($template['routeParts'] as $key => $item) { ?>
 				<select name="parts[]" id="">
 				<option value="">Choose the part</option>
 				<?php foreach ($template['formParts'] as $item1) { ?>
@@ -27,8 +27,8 @@
 
 				<?php } ?>
 				</select>
-				Время отправления: <input type="time" name="timeFrom[]" value="00:00"/>
-				Время прибытия: <input type="time" name="timeTo[]" value="00:00"/>	
+				Время отправления: <input type="time" name="timeFrom[]" value="<?= $template['routeTimeFrom'][$key] ?>"/>
+				Время прибытия: <input type="time" name="timeTo[]" value="<?= $template['routeTimeTo'][$key] ?>"/>
 				<br/>
 			<? } 
 			if ($template['addPart']){ ?>
@@ -39,7 +39,7 @@
 					<?php } ?>
 				</select>
 				Время отправления: <input type="time" name="timeFrom[]" value="00:00">
-				Время прибытия: <input type="time" name="timeTo[]" value="00:00">	
+				Время прибытия: <input type="time" name="timeTo[]" value="00:00">
 				<br/>
 			<? } ?>
 
@@ -51,7 +51,7 @@
 			<?php } ?>
 		</select>
 		Время отправления: <input type="time" name="timeFrom[]" value="00:00">
-		Время прибытия: <input type="time" name="timeTo[]" value="00:00">	
+		Время прибытия: <input type="time" name="timeTo[]" value="00:00">
 		<br/>
 		<? } ?>
 		
