@@ -110,19 +110,19 @@
 		<thead>
 			<tr>
 				<th>id</th>
-				<th>Город</th>
-				<th>Станция</th>
+				<th>Маршрут</th>
+				<th>Дата</th>
 				<th colspan="2"></th>
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach($template['list'] as $item){ ?>
+			<?php foreach($template['routesList'] as $item){ ?>
 				<tr>
 					<td><?=$item['id']?></td>
-					<td><?=$item['city']?></td>
-					<td><?=$item['name']?></td>
-					<td><a href="/admin/stations.php?action=edit&id=<?=$item['id']?>">edit</a></td>
-					<td><a href="/admin/stations.php?action=delete&id=<?=$item['id']?>">delete</a></td>
+					<td><?=$item['title']?></td>
+					<td><?=$item['date']?></td>
+					<td><a href="/admin/routes.php?action=edit&id=<?=$item['id']?>">edit</a></td>
+					<td><a href="/admin/routes.php?action=delete&id=<?=$item['id']?>">delete</a></td>
 				</tr>
 			<?} ?>
 		</tbody>		
