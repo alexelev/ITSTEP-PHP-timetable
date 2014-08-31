@@ -7,6 +7,7 @@
     echo('</pre>');
 
 	//подготовка данных отрезков и вагонов из БД
+    //для заполнения $template['formParts'], $template['formCars']
 	function prepareValues(){
 		global $template;
 		$query = "SELECT `p`.`id`, concat(concat(`from`.`city`,' - ',`from`.`name`), ' => ', concat(`to`.`city`,' - ',`to`.`name`)) as `title`
@@ -26,6 +27,9 @@
 		}
 	}
 
+    //подготовка данных из POST для заполнения
+    //$template['routeParts'], $template['routeCars'], $template['routeTimeFrom'],
+    //$template['routeTimeTo'], $template['formMtssage'], $template['formDate']
 	function prepareRoute(){
 		global $template;
 		$template['routeParts'] = array();
@@ -48,6 +52,7 @@
 		$template['formDate'] = $_POST['date'];
 	}
 
+    //для поиска данных $template['formParts'] по id
 	function findPart($id){
 		global $template;
 		foreach ($template['formParts'] as $item) {
@@ -57,6 +62,7 @@
 		return null;
 	}
 
+    //для поиска данных $template['formCars'] по id
 	function findCar($id){
 		global $template;
 		foreach ($template['formCars'] as $item) {
@@ -66,6 +72,7 @@
 		return null;	
 	}
 
+    //для заполнения $template['list'] из БД
 	function prepareList(){
 		global $template;
 		$query = "SELECT * FROM Stations ORDER BY `city`, `name`";
@@ -76,6 +83,7 @@
 		}
 	}
 
+    //для заполнения $template['routesList'] из БД
 	function prepareRoutesList(){
 		global $template;
 		$query = "SELECT `routes`.`id`, concat(concat(`from`.`city`, ' - ', `from`.`name`), ' => ', concat(`to`.`city`, ' - ', `to`.`name`)) as `title`, `date`
@@ -89,6 +97,7 @@
 		}
 	}
 
+    //получение данных из БД для заполнения формы при редактировании маршрута
 	function prepareRouteFromDB($id){
 		global $template;
 		$template['formId'] = $id;
