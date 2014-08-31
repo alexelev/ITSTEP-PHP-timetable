@@ -2,6 +2,10 @@
 
 	include '../init.php';
 
+    echo('<pre>');
+    print_r($template['routeParts']);
+    echo('</pre>');
+
 	//подготовка данных отрезков и вагонов из БД
 	function prepareValues(){
 		global $template;
@@ -158,6 +162,23 @@
 					prepareValues();
 					prepareRoute();
 					$template['addCar'] = true;
+                } elseif (isset($_POST['delete'])){
+                    $template['show_form'] = true;
+                    $template['formAction'] = 'edit';
+
+//                    echo('<br/><pre>');
+//                    print_r($_POST['parts']);
+//                    echo('</pre><br/>');
+
+                    unset($_POST['parts'][$_POST['delete']]);
+                    array_values($_POST['parts']);
+
+//                    echo('<pre>');
+//                    print_r($_POST['parts']);
+//                    echo('</pre>');
+
+                    prepareValues();
+                    prepareRoute();
 				} else {
 					$template['show_form'] = false;
 					prepareRoutesList();
@@ -182,13 +203,13 @@
 					            VALUES ($station1, $station2, '$message', '$cars',
 					            CAST('$timeFrom' AS TIME), CAST('$timeTo' AS TIME),
 					             CAST('$date' AS DATE))";
-						// echo $query;
-						// die();
+//						 echo $query;
+//						 die();
 					$result = mysql_query($query) or die(mysql_error());
 
                     $routeID = mysql_insert_id();
                     foreach (/*$template['routeParts']*/ $_POST['parts'] as $key => $part) {
-                        $id = $part[id];
+                        $id = $part;
                         $timeFrom = $_POST['timeFrom'][$key];
                         $timeTo = $_POST['timeTo'][$key];
                         // $timeFrom = $template[routeTimeFrom][$key];
@@ -221,6 +242,24 @@
 					prepareRoute();
 					$template['formId'] = $_POST['id'];
 					$template['addCar'] = true;
+                }elseif (isset($_POST['delete'])){
+                    $template['show_form'] = true;
+                    $template['formAction'] = 'edit';
+
+//                    echo('<br/><pre>');
+//                    print_r($_POST['parts']);
+//                    echo('</pre><br/>');
+
+                    unset($_POST['parts'][$_POST['delete']]);
+                    array_values($_POST['parts']);
+
+//                    echo('<pre>');
+//                    print_r($_POST['parts']);
+//                    echo('</pre>');
+
+                    prepareValues();
+                    prepareRoute();
+                    $template['formId'] = $_POST['id'];
 				} else {
 					$template['show_form'] = false;
 					prepareRoutesList();
@@ -242,16 +281,19 @@
 					$message = $_POST['message'];
 					$cars = implode(',', $_POST['cars']);
 
+//                    die('1');
 					$query = "UPDATE `routes`
-								SET `stFrom` = $station1, `stTo` = $station2, `timeFrom` = CAST('$timeFrom' AS TIME), `timeTo` = CAST('$timeTo' AS TIME), `message` = '$message', `date` = CAST('$date' AS DATE), `cars` = '$cars'
+								SET `stFrom` = $station1, `stTo` = $station2, `timeFrom` = CAST('$timeFrom' AS TIME),
+								    `timeTo` = CAST('$timeTo' AS TIME), `message` = '$message',
+								    `date` = CAST('$date' AS DATE), `cars` = '$cars'
 								WHERE `id` = {$_POST['id']}";
 								// echo "$query";
 					$result = mysql_query($query) or die(mysql_error());
-					// die('1');
+//					 die('1');
 					$query = "DELETE FROM `routes_parts` WHERE `id_route` = {$_POST['id']}";
 					$result = mysql_query($query) or die(mysql_error());
 					foreach ($_POST['parts'] as $key => $part) {
-                        $id = $part[id];
+                        $id = $part;
                         $timeFrom = $_POST['timeFrom'][$key];
                         $timeTo = $_POST['timeTo'][$key];
                         $query = "INSERT INTO `routes_parts` (`id_route`, `id_part`, `timeFrom`, `timeTo`)
@@ -279,7 +321,3 @@
 	// echo '</pre>';
 
 	include ABSPATH.'/admin/views/routes.php';
-
-
-	//TODO: запоминать время отрезков в $_POST, заполнить таблицу route_parts
-	//mysql_insert_id()

@@ -27,9 +27,15 @@
 
 				<?php } ?>
 				</select>
+
 				Время отправления: <input type="time" name="timeFrom[]" value="<?= $template['routeTimeFrom'][$key] ?>"/>
 				Время прибытия: <input type="time" name="timeTo[]" value="<?= $template['routeTimeTo'][$key] ?>"/>
-				<br/>
+
+                <?php if(count($template['routeParts']) < 2) {?>
+                <button name="delete" value="<?= $key ?>"> - </button>
+                <?php } ?>
+
+                <br/>
 			<? } 
 			if ($template['addPart']){ ?>
 				<select name="parts[]" id="">
