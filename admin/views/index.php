@@ -1,3 +1,4 @@
 <a href="/admin/stations.php">Stations</a> <br/>
 <a href="/admin/parts.php">Parts</a>  <br/>
-<a href="/admin/routes.php">Routes</a>
+<a href="/admin/routes.php">Routes</a> <br/>
+<a href="/admin/orders.php">Orders</a>

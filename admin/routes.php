@@ -227,7 +227,7 @@
                                     VALUES ($routeID, $id,
                                     CAST('$timeFrom' AS TIME),
                                     CAST('$timeTo' AS TIME))";
-						echo $query.'<br/>';
+						// echo $query.'<br/>';
 						// die();
                         $result = mysql_query($query) or die(mysql_error());
                     }
@@ -255,16 +255,18 @@
                     $template['show_form'] = true;
                     $template['formAction'] = 'edit';
 
-//                    echo('<br/><pre>');
-//                    print_r($_POST['parts']);
-//                    echo('</pre><br/>');
+                   // echo('<br/><pre>');
+                   // print_r($_POST['parts']);
+                   // echo(count($_POST['parts']));
+                   // echo('</pre><br/>');
 
                     unset($_POST['parts'][$_POST['delete']]);
                     array_values($_POST['parts']);
 
-//                    echo('<pre>');
-//                    print_r($_POST['parts']);
-//                    echo('</pre>');
+                   // echo('<pre>');
+                   // echo(count($_POST['parts']));
+                   // print_r($_POST['parts']);
+                   // echo('</pre>');
 
                     prepareValues();
                     prepareRoute();
