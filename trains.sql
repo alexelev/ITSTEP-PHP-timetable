@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 01 2014 г., 21:41
--- Версия сервера: 5.5.35-log
--- Версия PHP: 5.3.27
+-- Время создания: Сен 02 2014 г., 23:14
+-- Версия сервера: 5.5.38-log
+-- Версия PHP: 5.4.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `parts` (
   `station2` int(11) NOT NULL,
   `length` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=59 ;
 
 --
 -- Дамп данных таблицы `parts`
@@ -102,7 +102,38 @@ INSERT INTO `parts` (`id`, `station1`, `station2`, `length`) VALUES
 (23, 25, 30, 8),
 (24, 28, 31, 14),
 (25, 31, 32, 4),
-(26, 22, 25, 8);
+(26, 22, 25, 8),
+(27, 22, 19, 7),
+(28, 22, 20, 11),
+(29, 20, 21, 3),
+(30, 22, 23, 4),
+(31, 22, 24, 13),
+(32, 22, 25, 25),
+(33, 22, 26, 13),
+(34, 22, 27, 15),
+(36, 22, 27, 31),
+(37, 22, 28, 34),
+(38, 22, 29, 37),
+(39, 22, 30, 51),
+(40, 22, 31, 65),
+(41, 22, 32, 67),
+(42, 23, 19, 11),
+(43, 26, 19, 41),
+(44, 26, 20, 40),
+(45, 26, 21, 37),
+(46, 26, 22, 35),
+(47, 26, 23, 30),
+(48, 26, 27, 4),
+(49, 26, 28, 14),
+(50, 26, 29, 7),
+(51, 26, 30, 11),
+(52, 26, 31, 13),
+(53, 26, 32, 23),
+(54, 26, 33, 31),
+(55, 29, 31, 23),
+(56, 29, 32, 17),
+(57, 31, 33, 31),
+(58, 32, 33, 37);
 
 -- --------------------------------------------------------
 
@@ -120,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `routes` (
   `timeTo` time NOT NULL COMMENT 'время прибытия в конечную станцию',
   `date` date NOT NULL COMMENT 'дата поездки/билета',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf32 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf32 AUTO_INCREMENT=7 ;
 
 --
 -- Дамп данных таблицы `routes`
@@ -128,7 +159,10 @@ CREATE TABLE IF NOT EXISTS `routes` (
 
 INSERT INTO `routes` (`id`, `stFrom`, `stTo`, `message`, `cars`, `timeFrom`, `timeTo`, `date`) VALUES
 (1, 19, 25, 'ежедневно без выходных', '1,1,1,1,2,2,2,2', '16:00:00', '02:00:00', '2014-09-04'),
-(3, 19, 25, 'ежедневно без выходных', '1,1,2', '07:00:00', '16:00:00', '2014-09-07');
+(3, 19, 25, 'ежедневно без выходных', '1,1,2', '07:00:00', '16:00:00', '2014-09-07'),
+(4, 22, 32, 'по четным числам', '1,1,1,2,2', '06:00:00', '15:00:00', '2014-09-19'),
+(5, 19, 22, 'ежедневно', '1,1,2,2,1,2', '06:15:00', '17:00:00', '2014-09-23'),
+(6, 21, 25, 'по нечетным', '1,1', '09:00:00', '18:00:00', '2014-09-11');
 
 -- --------------------------------------------------------
 
@@ -143,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `routes_parts` (
   `timeFrom` time NOT NULL,
   `timeTo` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf32 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf32 AUTO_INCREMENT=38 ;
 
 --
 -- Дамп данных таблицы `routes_parts`
@@ -167,7 +201,16 @@ INSERT INTO `routes_parts` (`id`, `id_route`, `id_part`, `timeFrom`, `timeTo`) V
 (25, 3, 22, '13:10:00', '16:00:00'),
 (26, 1, 4, '16:00:00', '18:00:00'),
 (27, 1, 16, '18:05:00', '21:00:00'),
-(28, 1, 22, '21:05:00', '02:00:00');
+(28, 1, 22, '21:05:00', '02:00:00'),
+(29, 4, 33, '06:00:00', '07:20:00'),
+(30, 4, 50, '07:30:00', '10:00:00'),
+(31, 4, 56, '10:07:00', '13:05:00'),
+(32, 4, 58, '13:15:00', '15:00:00'),
+(33, 5, 4, '06:15:00', '08:20:00'),
+(34, 5, 15, '08:25:00', '11:40:00'),
+(35, 5, 40, '11:45:00', '17:00:00'),
+(36, 6, 16, '09:00:00', '11:00:00'),
+(37, 6, 22, '11:10:00', '18:00:00');
 
 -- --------------------------------------------------------
 
@@ -180,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `Stations` (
   `city` varchar(128) NOT NULL,
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
 -- Дамп данных таблицы `Stations`
@@ -200,7 +243,8 @@ INSERT INTO `Stations` (`id`, `city`, `name`) VALUES
 (29, 'г4', 'с2'),
 (30, 'г4', 'с3'),
 (31, 'г5', 'с1'),
-(32, 'г5', 'с2');
+(32, 'г5', 'с2'),
+(33, 'г6', 'с1');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

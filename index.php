@@ -8,5 +8,8 @@
 		$template['list'][] = $row;
 	}
 
+    echo('<pre>');
+    print_r($_POST);
+    echo('</pre>');
 
 	include ABSPATH.'/views/index.php';

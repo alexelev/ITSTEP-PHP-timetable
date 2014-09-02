@@ -104,7 +104,7 @@
 		$query = "SELECT `message`, `date`, `cars` 
 					FROM `routes`
 					WHERE `routes`.`id` = $id";
-		$result = mysql_query($query) or die(mysql_error());
+		$result = mysql_query($query) or die($query.'<br/>'.mysql_error());
 		$row = mysql_fetch_assoc($result);
 		$template['formMessage'] = $row['message'];
 		$template['formDate'] = $row['date'];
@@ -119,7 +119,7 @@
 		$query = "SELECT `id_part`, `timeFrom`, `timeTo`
 					FROM `routes_parts`
 					WHERE `id_route` = $id";
-		$result = mysql_query($query) or die(mysql_error());
+		$result = mysql_query($query) or die($query.'<br/>'.mysql_error());
 		while($row = mysql_fetch_assoc($result)){
 			$template['routeTimeFrom'][] = $row['timeFrom'];
 			$template['routeTimeTo'][] = $row['timeTo'];
@@ -150,7 +150,7 @@
 			case 'delete': 
 				$template['showForm'] = false;
 				$query = "DELETE FROM `Stations` WHERE `id` = '{$_GET['id']}'";
-				$result = mysql_query($query) or die(mysql_error());
+				$result = mysql_query($query) or die($query.'<br/>'.mysql_error());
 				header("Location: /admin/stations.php");
 
 			break;
@@ -193,12 +193,12 @@
 					prepareRoutesList();
 					$query = 'SELECT `station1` FROM `parts`
 					            WHERE `id` = '.$_POST['parts'][0];
-					$result = mysql_query($query) or die(mysql_error());
+					$result = mysql_query($query) or die($query.'<br/>'.mysql_error());
 					$station1 = current(mysql_fetch_assoc($result));
 					
 					$query = "SELECT `station1` FROM `parts`
 					            WHERE `id` = ".$_POST['parts'][count($_POST['parts']) - 1];
-					$result = mysql_query($query) or die(mysql_error());
+					$result = mysql_query($query) or die($query.'<br/>'.mysql_error());
 					$station2 = current(mysql_fetch_assoc($result));
 
 					$timeFrom = $_POST['timeFrom'][0];
@@ -214,7 +214,7 @@
 					             CAST('$date' AS DATE))";
 //						 echo $query;
 //						 die();
-					$result = mysql_query($query) or die(mysql_error());
+					$result = mysql_query($query) or die($query.'<br/>'.mysql_error());
 
                     $routeID = mysql_insert_id();
                     foreach (/*$template['routeParts']*/ $_POST['parts'] as $key => $part) {
@@ -229,7 +229,7 @@
                                     CAST('$timeTo' AS TIME))";
 						// echo $query.'<br/>';
 						// die();
-                        $result = mysql_query($query) or die(mysql_error());
+                        $result = mysql_query($query) or die($query.'<br/>'.mysql_error());
                     }
                     
                     // die();
@@ -276,13 +276,13 @@
 					prepareRoutesList();
 					$query = 'SELECT `station1` FROM `parts`
 					            WHERE `id` = '.$_POST['parts'][0];
-					$result = mysql_query($query) or die(mysql_error());
+					$result = mysql_query($query) or die($query.'<br/>'.mysql_error());
 
 					$station1 = current(mysql_fetch_assoc($result));
 					
 					$query = "SELECT `station1` FROM `parts`
 					            WHERE `id` = ".$_POST['parts'][count($_POST['parts']) - 1];
-					$result = mysql_query($query) or die(mysql_error());
+					$result = mysql_query($query) or die($query.'<br/>'.mysql_error());
 
 					$station2 = current(mysql_fetch_assoc($result));
 
@@ -299,10 +299,10 @@
 								    `date` = CAST('$date' AS DATE), `cars` = '$cars'
 								WHERE `id` = {$_POST['id']}";
 								// echo "$query";
-					$result = mysql_query($query) or die(mysql_error());
+					$result = mysql_query($query) or die($query.'<br/>'.mysql_error());
 //					 die('1');
 					$query = "DELETE FROM `routes_parts` WHERE `id_route` = {$_POST['id']}";
-					$result = mysql_query($query) or die(mysql_error());
+					$result = mysql_query($query) or die($query.'<br/>'.mysql_error());
 					foreach ($_POST['parts'] as $key => $part) {
                         $id = $part;
                         $timeFrom = $_POST['timeFrom'][$key];
@@ -313,7 +313,7 @@
                                     CAST('$timeTo' AS TIME))";
 						// echo $query.'<br/>';
 						// die();
-                        $result = mysql_query($query) or die(mysql_error());
+                        $result = mysql_query($query) or die($query.'<br/>'.mysql_error());
                     }
                 }
 				break;
