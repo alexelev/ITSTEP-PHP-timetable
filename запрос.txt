@@ -1,0 +1,22 @@
+SELECT 
+	`r`.`id`,
+	'             ',
+	`rp1`.`id`,
+	`rp1`.`id_route`,
+	`rp1`.`id_part`,
+	'             ',
+	`p1`.`station1`,
+	'             ',
+	`rp2`.`id`,
+	`rp2`.`id_route`,
+	`rp2`.`id_part`,
+	'             ',
+	`p2`.`station2`
+FROM `routes` AS `r`
+
+LEFT JOIN `routes_parts` AS `rp1` ON `rp1`.`id_route` = `r`.`id`
+LEFT JOIN `parts` AS `p1` ON `p1`.`id` = `rp1`.`id_part`
+
+LEFT JOIN `routes_parts` AS `rp2` ON `rp2`.`id_route` = `r`.`id`
+LEFT JOIN `parts` AS `p2` ON `p2`.`id` = `rp2`.`id_part`
+WHERE `p1`.`station1` = 14 AND `p2`.`station2` = 17 AND `rp1`.`id` <= `rp2`.`id`
