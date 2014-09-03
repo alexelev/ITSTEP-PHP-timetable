@@ -1,6 +1,7 @@
-SELECT * FROM
-(SELECT /*id,*/ id_route FROM routes_parts
-WHERE id_part IN
-(SELECT id FROM parts WHERE station1 = 21 OR station2 = 28)) as sel
-  INNER JOIN sel as y ON sel = y
-  HAVING count(*)>1
+SELECT id_route
+FROM routes_parts as rp, parts as fr, parts as t
+  WHERE rp.id_part = fr.id 
+        AND rp.id_part = t.id 
+        AND (fr.station1 = 21 OR t.station2 = 28)
+GROUP BY id_route
+HAVING COUNT(*) > 1
