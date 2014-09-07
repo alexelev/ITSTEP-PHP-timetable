@@ -30,6 +30,8 @@
 					<th>timeFrom</th>
 					<th>timeTo</th>
 					<th>Length</th>
+                    <th>цена в плацкарте</th>
+                    <th>цена в купе</th>
 					<th colspan="2"></th>
 				</tr>
 			</thead>
@@ -43,6 +45,8 @@
 						<td><?= $item['timeFrom'] ?></td>
 						<td><?= $item['timeTo'] ?></td>
 						<td><?= $item['length'] ?></td>
+                        <td><?= $item['costCar1'] ?></td>
+                        <td><?= $item['costCar2'] ?></td>
 						<td><a href="/admin/stations.php?action=edit&id=<?=$item['id']?>">edit</a></td>
 						<td><a href="/admin/stations.php?action=delete&id=<?=$item['id']?>">delete</a></td>
 					</tr>

@@ -28,15 +28,15 @@
 		
 		$result = mysql_query($query) or die(mysql_error());
 
-		$prices = array();
-		$query = "SELECT `price` FROM `cars` ORDER BY `id`";
-		$result = mysql_query($query) or die(mysql_error());
-		$price[1] = current(mysql_fetch_assoc($result));
-		$price[2] = current(mysql_fetch_assoc($result));
-		
 		$template['r'] = array();
-		while($row = mysql_fetch_assoc($result)){			
-			$id1 = $row['id_rp1'];
+
+		while($row = mysql_fetch_assoc($result)){
+
+//            echo('<pre>');
+//            print_r($row);
+//			echo('</pre>');
+
+            $id1 = $row['id_rp1'];
 			$id2 = $row['id_rp2'];
 			$id_r = $row['id'];
 			$query = "SELECT SUM(`p`.`length`) FROM `routes_parts` as `rp` 
@@ -49,7 +49,19 @@
 			$row['typeCar2exist'] = (strpos($row['cars'], '2') !== false ? true : false);
 			$template['r'][] = $row;
 		}
-	}
+
+        $prices = array();
+        $query = "SELECT `price` FROM `cars` ORDER BY `id`";
+        $result = mysql_query($query) or die(mysql_error());
+        $price[1] = current(mysql_fetch_assoc($result));
+        $price[2] = current(mysql_fetch_assoc($result));
+
+        foreach ($template['r'] as $route){
+            $route['costCar1'] = $route['length'] * $price[1];
+            $route['costCar2'] = $route['length'] * $price[2];
+        }
+
+    }
 
 	echo('<pre>');
     var_dump($template['r']);
