@@ -36,23 +36,25 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach($template['r'] as $item){ ?>
-					<tr>
-						<td><?= $item['id'] ?></td>
-						<td><?= $item['stFrom'] ?></td>
-						<td><?= $item['stTo'] ?></td>
-						<td><?= $item['message'] ?></td>
-						<td><?= $item['timeFrom'] ?></td>
-						<td><?= $item['timeTo'] ?></td>
-						<td><?= $item['length'] ?></td>
-                        <td>
-                        	<?= ($item['typeCar1exist'] ? ($item['costCar1'].'<br/><a href="?stFrom='.$item['stFrom'].'&stTo='.$item['stTo'].'&id_route='.$item['id'].'&typeCar=1&price='.$item['costCar1'].'">заказать</a>') : '-') ?>							
-                        </td>
-                        <td>
-                        	<?= ($item['typeCar2exist'] ? ($item['costCar2'].'<br/><a href="?stFrom='.$item['stFrom'].'&stTo='.$item['stTo'].'&id_route='.$item['id'].'&typeCar=2&price='.$item['costCar2'].'">заказать</a>') : '-') ?>
-                       	</td>
-					</tr>
-				<? } if (!empty($template['train'])){ ?>
+				<?php if(isset($template['r'])){
+                    foreach($template['r'] as $item){ ?>
+                        <tr>
+                            <td><?= $item['id'] ?></td>
+                            <td><?= $item['stFrom'] ?></td>
+                            <td><?= $item['stTo'] ?></td>
+                            <td><?= $item['message'] ?></td>
+                            <td><?= $item['timeFrom'] ?></td>
+                            <td><?= $item['timeTo'] ?></td>
+                            <td><?= $item['length'] ?></td>
+                            <td>
+                                <?= ($item['typeCar1exist'] ? ($item['costCar1'].'<br/><a href="?stFrom='.$item['stFrom'].'&stTo='.$item['stTo'].'&id_route='.$item['id'].'&typeCar=1&price='.$item['costCar1'].'">заказать</a>') : '-') ?>
+                            </td>
+                            <td>
+                                <?= ($item['typeCar2exist'] ? ($item['costCar2'].'<br/><a href="?stFrom='.$item['stFrom'].'&stTo='.$item['stTo'].'&id_route='.$item['id'].'&typeCar=2&price='.$item['costCar2'].'">заказать</a>') : '-') ?>
+                            </td>
+                        </tr>
+                    <? }
+                } if (!empty($template['train'])){ ?>
 
 					<form action="" method="POST">
 						<input type="hidden" name="price">
@@ -73,12 +75,15 @@
 						selectedCar.addEventListener('change', function(){
 							var car = selectedCar.value;
 							places.innerHTML = '';
+                            var firstOption = document.createElement('option');
+                            firstOption.innerText = "Choose the place";
+                            places.appendChild(firstOption);
 							for (var i in train[car]) {
 								if(train[car][i]){
 									var option = document.createElement('option');
 									option.value = i;
 									option.innerText = i;
-									selectedCar.appendChild(option);
+									places.appendChild(option);
 								}
 							};
 						});
