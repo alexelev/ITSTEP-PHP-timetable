@@ -45,12 +45,45 @@
 						<td><?= $item['timeFrom'] ?></td>
 						<td><?= $item['timeTo'] ?></td>
 						<td><?= $item['length'] ?></td>
-                        <td><?= $item['costCar1'] ?></td>
-                        <td><?= $item['costCar2'] ?></td>
-						<td><a href="/admin/stations.php?action=edit&id=<?=$item['id']?>">edit</a></td>
-						<td><a href="/admin/stations.php?action=delete&id=<?=$item['id']?>">delete</a></td>
+                        <td>
+                        	<?= ($item['typeCar1exist'] ? ($item['costCar1'].'<br/><a href="?stFrom='.$item['stFrom'].'&stTo='.$item['stTo'].'&id_route='.$item['id'].'&typeCar=1&price='.$item['costCar1'].'">заказать</a>') : '-') ?>							
+                        </td>
+                        <td>
+                        	<?= ($item['typeCar2exist'] ? ($item['costCar2'].'<br/><a href="?stFrom='.$item['stFrom'].'&stTo='.$item['stTo'].'&id_route='.$item['id'].'&typeCar=2&price='.$item['costCar2'].'">заказать</a>') : '-') ?>
+                       	</td>
 					</tr>
-				<?} ?>
+				<? } if (!empty($template['train'])){ ?>
+
+					<form action="" method="POST">
+						<input type="hidden" name="price">
+						<select name="cars" id="cars">
+							<option value="">Choose the car</option>
+							<?php foreach ($template['train'] as $key => $train) { ?>
+								<option value="<?= $key ?>">Car № <?= $key ?></option>
+							<? } ?>
+						</select>
+						<select name="places" id="places">
+							<option value="">Choose the place</option>
+						</select>
+					</form>
+					<script type="text/javascript">
+						var train = <?= json_encode($template['train']) ?>;
+						var selectedCar = document.getElementById('cars'), 
+							places = document.getElementById('places');
+						selectedCar.addEventListener('change', function(){
+							var car = selectedCar.value;
+							places.innerHTML = '';
+							for (var i in train[car]) {
+								if(train[car][i]){
+									var option = document.createElement('option');
+									option.value = i;
+									option.innerText = i;
+									selectedCar.appendChild(option);
+								}
+							};
+						});
+					</script>
+				<? } ?>
 			</tbody>		
 		</table>
     </body>
