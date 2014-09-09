@@ -1,27 +1,39 @@
 <?php
 	include 'init.php';
 	
-	$query = "SELECT /*`id`, concat(`city`, ' -> ', `name`)*/ * FROM Stations ORDER BY `city`, `name`";
+	$query = "SELECT * FROM Stations ORDER BY `city`, `name`";
 	$r = mysql_query($query) or die(mysql_error());
 	$template['list'] = array();
 	while($row = mysql_fetch_assoc($r)){
 		$template['list'][] = $row;
 	}
 
-    // echo('<pre>');
-    // print_r($_POST);
-    // echo('</pre>');
+     echo('<pre>');
+     print_r($_POST);
+     echo('</pre>');
 
-    if(isset($_POST['stationFrom']) && isset($_POST['stationTo'])){
+//    die(1);
 
+    if(isset($_POST['stationFrom']) && !empty($_POST['stationFrom']) &&
+        isset($_POST['stationTo']) && !empty($_POST['stationTo'])){
+
+        $template['date'] = (isset($_POST['date']) ? $_POST['date'] : date("d.m.Y"));
     	$prices = array();
     	$query = "SELECT `price` FROM `cars` ORDER BY `id`";
 	    $result = mysql_query($query) or die(mysql_error());
 	    $price[1] = current(mysql_fetch_assoc($result));
 	    $price[2] = current(mysql_fetch_assoc($result));
 
-	    $query = "SELECT `r`.*, `rp1`.`id` as `id_rp1`, `rp2`.`id` as `id_rp2`
+	    $query = "SELECT `r`.*, `rp1`.`id` as `id_rp1`, `rp2`.`id` as `id_rp2`,
+                  concat(
+                    concat(`from`.`city`, ' - ', `from`.`name`),
+                    ' => ',
+                    concat(`to`.`city`, ' - ', `to`.`name`)
+                  ) as `title`
 				FROM `routes` AS `r`
+
+				LEFT JOIN `Stations` as `from` ON `from`.`id` = `r`.`stFrom`
+				LEFT JOIN `Stations` as `to` ON `to`.`id` = `r`.`stTo`
 
 				LEFT JOIN `routes_parts` AS `rp1` ON `rp1`.`id_route` = `r`.`id`
 				LEFT JOIN `parts` AS `p1` ON `p1`.`id` = `rp1`.`id_part`
@@ -31,7 +43,7 @@
 				WHERE `p1`.`station1` = {$_POST['stationFrom']} AND `p2`.`station2` = {$_POST['stationTo']} 
 				AND `rp1`.`id` <= `rp2`.`id`";
 
-		// echo $query.'<br/>';
+//		 echo $query.'<br/>';
 		
 		$result = mysql_query($query) or die(mysql_error());
 
@@ -102,5 +114,4 @@
 	// echo('<pre>');
  //    var_dump($template['train']);
  //    echo('</pre>');
-
 	include ABSPATH.'/views/index.php';
