@@ -1,0 +1,81 @@
+html {
+	margin: 0;
+	padding: 0;
+	background-color: aliceblue;
+}
+
+body {
+	margin: 0 auto;
+	padding: 10px 30px;
+	width: 1024px;
+	height: 100%;
+	background-color: white;
+}
+
+header {
+	text-align: center;
+}
+
+header h1 {
+	margin-top: 0;
+}
+
+form {
+	text-align: center;
+	margin: 20px 0 40px;
+	padding: 10px;
+	border: 1px solid black;
+}
+
+form label {
+	font-size: 24px;
+	margin-right: 10px;
+}
+
+form select {
+	font-size: 20px;
+	margin-right: 25px;
+}
+
+form div {
+	margin-top: 20px;
+}
+
+form div:last-child {
+	margin-top: 30px;
+}
+
+form input[type=text] {
+	width: 300px;
+}
+
+form input[type=submit] {
+	font-size: 24px;
+	background-color: green;
+	padding: 5px 10px;
+	color: white;
+}
+
+h3 {
+	text-align: center;
+}
+
+p {
+	font-size: 18px;
+}
+
+p.info {
+	margin-left: 100px;
+}
+
+p.info  span{
+	font-weight: bold;
+}
+
+p.info span.price {
+	font-size: 24px;
+}
+
+p.info span.price span {
+	color: red;
+}

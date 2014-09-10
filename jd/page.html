@@ -1,0 +1,99 @@
+<!Doctype html>
+<html>
+	<head>
+		<title>Заказ билетов онлайн</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<body>
+		<header>
+			<h1>Заказ билетов</h1>
+		</header>
+		
+		<form action="" method="get">
+			<div>
+				<label for="station1">Откуда :</label>
+				<select name="station1" id="station1">
+					<option value="">Выберите станцию отправления</option>
+				</select>
+			
+				<label for="station2">Куда :</label>
+				<select name="station2" id="station2">
+					<option value="">Выберите станцию прбытия</option>
+				</select>
+			</div>
+			
+			<div class="submit">
+				<input type="submit" name="search" value="Поиск поездов на 03.09.2014" />
+			</div>
+		</form>
+		
+		<table>
+			<thead>
+				<th>Маршрут</th>
+				<th>Дата</th>
+				<th>Плацкарт</th>
+				<th>Купе</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Город1 - Станция1 => Город2 - Станция2</td>
+					<td>03.09.2014</td>
+					<td>190 руб. <br/> <a href="/index.php?route=14&type=1">Заказать</a></td>
+					<td>250 руб. <br/> <a href="/index.php?route=14&type=2">Заказать</a></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<form action="" method="get">
+			<div>
+				<label for="fio">ФИО :</label>
+				<input type="text" name="fio" id="fio" value="" />
+			</div>
+			
+			<div>
+				<label for="vagon">Вагон :</label>
+				<select name="vagon" id="vagon">
+					<option value="">Выберите номер вагона</option>
+				</select>
+				
+				<label for="place">Место :</label>
+				<select name="place" id="place">
+					<option value="">Выберите место</option>
+				</select>				
+			</div>
+			
+			<div>
+				<input type="submit" name="order" value="Заказать билет" />
+			</div>
+		</form>
+		
+		<h3>Ваш заказ оформлен.</h3>
+		<p class="info">
+			Информация о заказе : <br/><br/>
+			Номер поезда - <span>26</span><br/>
+			Маршрут - <span>26</span><br/>
+			Дата - <span>26</span><br/>
+			Станция отпр. - <span>26</span><br/>
+			Станция приб. - <span>26</span><br/>
+			Время отпр. - <span>26</span><br/>
+			Время приб. - <span>26</span><br/>
+			Вагон - <span>26</span><br/>
+			Место - <span>26</span><br/><br/>
+			
+			<span class="price">
+				Стоимость: <span>26 <i>руб.</i></span>
+			</span>
+		</p>
+		
+		
+		<footer>
+			<h3>Железнодорожные билеты онлайн</h3>
+			<p>
+				Покупайте и бронируйте жд билеты за 2 минуты. Вы можете выбрать и купить самый подходящий рейс и поезд, занять лучшие места и самостоятельно ввести данные пассажира. 
+				Покупая билет у нас, Вы экономите на дороге в кассу, не тратите время на очередь и сами контролируете оформление железнодорожного билета, исключая ошибки, которые может сделать кассир. 
+				Мы гарантируем, что наша служба поддержки поможет Вам решить любой вопрос или проблему с момента прихода на сайт до вашей посадки в вагон. 
+				Электронные жд билеты онлайн всегда быстро, удобно и надежно!		
+			</p>
+		</footer>
+	</body>
+</html>

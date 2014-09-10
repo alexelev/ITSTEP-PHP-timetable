@@ -37,11 +37,11 @@
 		<tbody>
 			<?php foreach($template['list'] as $item){ ?>
 				<tr>
-					<td><?=$item['id']?></td>
-					<td><?=$item['city']?></td>
-					<td><?=$item['name']?></td>
-					<td><a href="/admin/stations.php?action=edit&id=<?=$item['id']?>">edit</a></td>
-					<td><a href="/admin/stations.php?action=delete&id=<?=$item['id']?>">delete</a></td>
+					<td><?=$item->getID()?></td>
+					<td><?=$item->city?></td>
+					<td><?=$item->name?></td>
+					<td><a href="/admin/stations.php?action=edit&id=<?=$item->getID()?>">edit</a></td>
+					<td><a href="/admin/stations.php?action=delete&id=<?=$item->getID()?>">delete</a></td>
 				</tr>
 			<?} ?>
 		</tbody>		
