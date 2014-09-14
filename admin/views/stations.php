@@ -18,9 +18,9 @@
 		<? } ?>
 		
 		ГОРОД: <input type="text" name="city"  
-				value="<?= ($template['formAction'] === 'edit') ? $template['formCity'] : ''?>" />
+				value="<?= ($template['formAction'] === 'edit') ? $template['formStation']->city : ''?>" />
 		СТАНЦИЯ: <input type="text" name="name" 
-				value="<?= ($template['formAction'] === 'edit') ? $template['formName'] : ''?>"/>
+				value="<?= ($template['formAction'] === 'edit') ? $template['formStation']->name : ''?>"/>
 		<input type="submit" value="CREATE">
 	</form>
 <?php } else {?>

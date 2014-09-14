@@ -58,7 +58,7 @@
 					// $row = mysql_fetch_assoc($result);
 					// $template['formCity'] = $row['city'];
 					// $template['formName'] = $row['name'];
-					// $template['formId'] = $_GET['id'];
+					 $template['formId'] = $_GET['id'];
 
 				}
 				break;
@@ -66,7 +66,7 @@
 				$template['showForm'] = false;
 				// $query = "DELETE FROM `Stations` WHERE `id` = '{$_GET['id']}'";
 				// $result = mysql_query($query) or die(mysql_error());
-				Stations::delete($_GET['id']);
+				Station::delete($_GET['id']);
 				header("Location: /admin/stations.php");
 
 			break;

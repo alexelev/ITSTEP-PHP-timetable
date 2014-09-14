@@ -41,7 +41,8 @@
 					$this->length = $row['length'];
 					$this->title = $row['title'];
 				}
-		}
+		    };
+        }
 
 		public function getStationFrom()
 		{
@@ -79,11 +80,12 @@
 		{
 			if ($this->id) {
 				$query = "UPDATE `parts` SET `station1` = {$this->id_stationFrom}, `station2` = {$this->id_stationTo}, `length` = {$this->length}
-							WHERE `id` = {$this->id}"
+							WHERE `id` = {$this->id}";
 				$result = mysql_query($query) or mysql_error();
 			} else {
-				$query = "INSERT INTO `parts` (`station1`, `station2`, `length`) VALUES ({$this->id_stationFrom}, {$this->id_stationTo}, {$this->length}) 
-							WHERE `id` = {$this->id}"
+				$query = "INSERT INTO `parts` (`station1`, `station2`, `length`)
+                          VALUES ({$this->id_stationFrom}, {$this->id_stationTo}, {$this->length})
+						  WHERE `id` = {$this->id}";
 				$result = mysql_query($query) or mysql_error();
 			}
 		}
