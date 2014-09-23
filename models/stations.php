@@ -61,7 +61,7 @@
 
 		public static function delete($id)
 		{
-			$query = "DELETE FROM `Stations` WHERE `id` = '{$_GET['id']}'";
-			$result = mysql_query($query) or die(mysql_error());
+			$query = "DELETE FROM `Stations` WHERE `id` = {$id}";
+			$result = mysql_query($query) or mysql_error();
 		}
 	}
