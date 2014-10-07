@@ -59,6 +59,20 @@
 			return $array;
 		}
 
+        public static function getListFormatNames(){
+            $query = "SELECT id, CONCAT(`city`,' - ', `name`) as `station` FROM `Stations` ORDER BY `city`, `name`";
+            $result = mysql_query($query) or mysql_error();
+            $array = array();
+            while ( $row = mysql_fetch_assoc($result)) {
+                $station = new self();
+                $station->id = $row['id'];
+                $station->city = $row['city'];
+                $station->name = $row['name'];
+                $array[] = $station;
+            }
+            return $array;
+        }
+
 		public static function delete($id)
 		{
 			$query = "DELETE FROM `Stations` WHERE `id` = {$id}";

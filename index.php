@@ -102,7 +102,7 @@
        		if($car == $_GET['typeCar']){
        			$template['train'][$key + 1] = array();
        			for ($i=1; $i <= $places; $i++) { 
-       				//true усли место свободно, false усли место занято
+       				//true если место свободно, false усли место занято
        				$template['train'][$key + 1][$i] = !(isset($orderedPlaces[$key + 1]) && in_array($i, $orderedPlaces[$key]));
        			}
        		}

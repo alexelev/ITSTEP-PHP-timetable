@@ -1,6 +1,6 @@
 <?php
 
-	include_once ABSPATH.'/models/station.php';
+	include_once ABSPATH.'/models/stations.php';
 
 	class Part{
 		private $id;
