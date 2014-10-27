@@ -21,16 +21,16 @@
 		<select name="from" id="">
 			<option>Choose the station</option>
 			<?php foreach ($template['formStations'] as $item){ ?>
-			<option value="<?=$item['id'] ?>" <?= ($template['formAction'] === 'edit' && 
-				$template['formFrom'] === $item['id']) ? 'selected' : '' ?>><?=$item['station']?></option>
+			<option value="<?=$item->id ?>" <?= ($template['formAction'] === 'edit' &&
+				$template['formFrom'] === $item->id) ? 'selected' : '' ?>><?=$item->station?></option>
 			<?php } ?>
 		</select>
 		StationTO:
 		<select name="to" id="">
 			<option>Choose the station</option>
 			<?php foreach ($template['formStations'] as $item){ ?>
-			<option value="<?=$item['id'] ?>" <?= ($template['formAction'] === 'edit' && 
-				$template['formTo'] === $item['id']) ? 'selected' : '' ?>><?=$item['station']?></option>
+			<option value="<?=$item->id ?>" <?= ($template['formAction'] === 'edit' &&
+				$template['formTo'] === $item->id) ? 'selected' : '' ?>><?=$item->station?></option>
 			<?php } ?>
 		</select>
 		

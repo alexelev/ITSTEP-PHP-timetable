@@ -61,15 +61,20 @@
 
         public static function getListFormatNames(){
             $query = "SELECT id, CONCAT(`city`,' - ', `name`) as `station` FROM `Stations` ORDER BY `city`, `name`";
+//            echo('<pre>'); var_dump($query); echo('</pre>');
             $result = mysql_query($query) or mysql_error();
+//            echo('<pre>'); var_dump($result); echo('</pre>');
             $array = array();
             while ( $row = mysql_fetch_assoc($result)) {
+//                echo('<pre>'); var_dump($row); echo('</pre>');
                 $station = new self();
                 $station->id = $row['id'];
-                $station->city = $row['city'];
-                $station->name = $row['name'];
+                $station->station = $row['station'];
+//                $station->city = $row['city'];
+//                $station->name = $row['name'];
                 $array[] = $station;
             }
+//            echo('<pre>'); var_dump($array); echo('</pre>');
             return $array;
         }
 

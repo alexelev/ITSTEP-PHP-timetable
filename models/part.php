@@ -78,14 +78,14 @@
 
 		public function save()
 		{
+            echo('<pre>'); var_dump($this); echo('</pre>');
 			if ($this->id) {
 				$query = "UPDATE `parts` SET `station1` = {$this->id_stationFrom}, `station2` = {$this->id_stationTo}, `length` = {$this->length}
 							WHERE `id` = {$this->id}";
 				$result = mysql_query($query) or mysql_error();
 			} else {
 				$query = "INSERT INTO `parts` (`station1`, `station2`, `length`)
-                          VALUES ({$this->id_stationFrom}, {$this->id_stationTo}, {$this->length})
-						  WHERE `id` = {$this->id}";
+                          VALUES ({$this->id_stationFrom}, {$this->id_stationTo}, {$this->length})";
 				$result = mysql_query($query) or mysql_error();
 			}
 		}
@@ -113,7 +113,7 @@
 
 		public static function delete($id)
 		{
-			$query = "DELETE FROM `parts` WHERE `id` = '{$_GET['id']}'";
+			$query = "DELETE FROM `parts` WHERE `id` = $id";
 			$result = mysql_query($query) or die(mysql_error());
 		}
 	}

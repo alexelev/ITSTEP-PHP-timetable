@@ -10,9 +10,10 @@
 //							VALUES ('{$_POST['from']}', '{$_POST['to']}', '{$_POST['length']}')";
 //					$result = mysql_query($query);
                     $part = new Part();
-                    $part->stFrom = $_POST['from'];
-                    $part->stTo = $_POST['to'];
+                    $part->id_stationFrom = $_POST['from'];
+                    $part->id_stationTo = $_POST['to'];
                     $part->length = $_POST['length'];
+                    echo('<pre>'); var_dump($part); echo('</pre>');
                     $part->save();
 				} else {
 					$_GET['action'] = 'add';
@@ -27,6 +28,9 @@
 //
 //						$result = mysql_query($query);
                     $part = new Part($_POST['id']);
+                    $part->id_stationFrom = $_POST['from'];
+                    $part->id_stationTo = $_POST['to'];
+                    $part->length = $_POST['length'];
                     $part->save();
 					} else {
 						$_GET['action'] = 'edit';
@@ -49,6 +53,7 @@
 //					$template['formStations'][] = $row;
 //				}
                 $template['formStations'] = Station::getListFormatNames();
+//                echo('<pre>'); var_dump($template['formStations']); echo('</pre>');
 				break;
 			case 'edit': 
 				$template['show_form'] = true;
@@ -69,8 +74,8 @@
 //					$template['formLength'] = $row['length'];
 //					$template['formId'] = $_GET['id'];
                     $part = new Part($_GET['id']);
-					$template['formFrom'] = $part->stFrom;
-					$template['formTo'] = $part->stTo;
+					$template['formFrom'] = $part->id_stationFrom;
+					$template['formTo'] = $part->id_stationTo;
 					$template['formLength'] = $part->length;
 					$template['formId'] = $_GET['id'];
 				}

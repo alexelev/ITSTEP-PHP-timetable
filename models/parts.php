@@ -25,6 +25,7 @@ class Part{
     }
 
     public function save(){
+        echo('<pre>'); var_dump($this); echo('</pre>');
         if($this->id){
             $query = "UPDATE `parts`
                       SET `station1` = '{$this->stFrom}', `station2` = '{$this->stTo}', `length` = {$this->length}
